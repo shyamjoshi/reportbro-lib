@@ -44,8 +44,6 @@ class Container(object):
            self.doc_elements[index]= self.check_if_same_return_copy(elem,index)
 
         for elem in self.doc_elements:
-           
-
             if pdf_doc or not elem.spreadsheet_hide or only_verify:
                 elem.prepare(ctx, pdf_doc=pdf_doc, only_verify=only_verify)
                 if not self.allow_page_break:
