@@ -1,6 +1,7 @@
 from typing import List
 from .elements import DocElementBase, PageBreakElement
 from .enums import BandType
+import copy
 
 
 class Container(object):
@@ -25,12 +26,20 @@ class Container(object):
     def add(self, doc_element):
         self.doc_elements.append(doc_element)
 
+    def check_if_same_return_copy(self,doc_element):
+        for elem in self.doc_elements:
+            if(elem is doc_element):
+                doc_element = copy.copy(elem)
+        return doc_element
+
+
     def is_visible(self):
         return True
 
     def prepare(self, ctx, pdf_doc=None, only_verify=False):
         self.sorted_elements = []
         for elem in self.doc_elements:
+            elem =self.check_if_same_return_copy(elem)
             if pdf_doc or not elem.spreadsheet_hide or only_verify:
                 elem.prepare(ctx, pdf_doc=pdf_doc, only_verify=only_verify)
                 if not self.allow_page_break:
