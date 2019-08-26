@@ -26,8 +26,10 @@ class Container(object):
     def add(self, doc_element):
         self.doc_elements.append(doc_element)
 
-    def check_if_same_return_copy(self,doc_element):
-        for elem in self.doc_elements:
+    def check_if_same_return_copy(self,doc_element,index):
+        for index2,elem in enumerate(self.doc_elements):
+            if index == index2: 
+                pass
             if(elem is doc_element):
                 doc_element = copy.copy(elem)
         return doc_element
@@ -38,8 +40,13 @@ class Container(object):
 
     def prepare(self, ctx, pdf_doc=None, only_verify=False):
         self.sorted_elements = []
+        # print( type(self.doc_elements))
+        for index,elem in enumerate(self.doc_elements):
+           self.doc_elements[index]= self.check_if_same_return_copy(elem,index)
+
         for elem in self.doc_elements:
-            elem =self.check_if_same_return_copy(elem)
+           
+
             if pdf_doc or not elem.spreadsheet_hide or only_verify:
                 elem.prepare(ctx, pdf_doc=pdf_doc, only_verify=only_verify)
                 if not self.allow_page_break:
