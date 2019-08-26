@@ -40,7 +40,6 @@ class Container(object):
 
     def prepare(self, ctx, pdf_doc=None, only_verify=False):
         self.sorted_elements = []
-        # print( type(self.doc_elements))
         for index,elem in enumerate(self.doc_elements):
            self.doc_elements[index]= self.check_if_same_return_copy(elem,index)
 
